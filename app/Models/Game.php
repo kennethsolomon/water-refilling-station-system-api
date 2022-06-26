@@ -18,4 +18,9 @@ class Game extends Model
     {
         return json_decode($cards);
     }
+
+    public function player()
+    {
+        return $this->hasMany(Player::class);
+    }
 }

@@ -13,3 +13,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 });
 
     Route::post("login",[\App\Http\Controllers\AuthController::class,'login']);
+
+    Route::get("getAllPlayers",[\App\Http\Controllers\PlayerController::class,'getAllPlayers']);
+
+    Route::post("gameConfig",[\App\Http\Controllers\GameController::class,'gameConfig']);
