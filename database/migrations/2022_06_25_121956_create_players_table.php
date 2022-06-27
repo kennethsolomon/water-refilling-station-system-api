@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('game_id')->nullable()->constrained('games');
             $table->string('name');
             $table->integer('money')->nullable();
+            $table->json('cards')->nullable();
             $table->timestamps();
         });
     }

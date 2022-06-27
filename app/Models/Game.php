@@ -9,9 +9,12 @@ class Game extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'deck_id'
+    ];
+
     protected $casts = [
         'cards' => 'array',
-        'shuffled_cards' => 'string'
     ];
 
     public function getCardsAttribute($cards)

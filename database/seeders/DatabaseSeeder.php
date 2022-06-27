@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
 
         ]);
 
+        \App\Models\Game::factory(1)->create();
         \App\Models\Player::factory(3)->create();
         \App\Models\Bet::factory(3)->create();
     }

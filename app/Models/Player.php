@@ -9,6 +9,15 @@ class Player extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'cards' => 'array',
+    ];
+
+    public function getCardsAttribute($cards)
+    {
+        return json_decode($cards);
+    }
+
     public function bet()
     {
         return $this->hasOne(Bet::class);

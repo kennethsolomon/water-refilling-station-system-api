@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('games', function (Blueprint $table) {
             $table->id();
-            $table->integer('deck_id');
-            $table->integer('current_playing');
-            $table->string('drawn_card');
-            $table->json('cards');
+            $table->string('deck_id')->nullable();
+            $table->string('drawn_card')->nullable();
+            $table->integer('card_remaining')->nullable();
+            $table->integer('current_playing')->default(1);
+            $table->json('cards')->nullable();
 
             $table->timestamps();
         });

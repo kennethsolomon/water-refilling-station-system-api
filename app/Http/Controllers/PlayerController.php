@@ -9,6 +9,6 @@ class PlayerController extends Controller
 {
     function getAllPlayers()
     {
-        return Player::with(['game', 'bet'])->get();
+        return Player::with(['bet'])->get();
     }
 }
