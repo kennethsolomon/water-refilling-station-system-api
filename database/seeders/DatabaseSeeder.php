@@ -16,13 +16,18 @@ class DatabaseSeeder extends Seeder
     {
 
         \App\Models\User::factory()->create([
-            'name' => 'Kenneth',
             'email' => 'kenneth@email.com',
-
         ]);
 
-        \App\Models\Game::factory(1)->create();
-        \App\Models\Player::factory(3)->create();
-        \App\Models\Bet::factory(3)->create();
+        // \App\Models\Game::factory(1)->create();
+        // \App\Models\Player::factory(3)->create();
+        // \App\Models\Bet::factory(3)->create();
+
+        $this->call([
+            ClassificationSeeder::class
+        ]);
+
+        \App\Models\Customer::factory(3)->create();
+        \App\Models\Item::factory(3)->create();
     }
 }
