@@ -31,11 +31,6 @@ class Customer extends Model
         return $this->hasMany(Borrow::class);
     }
 
-    public function owned_items()
-    {
-        return $this->hasMany(OwnedItem::class);
-    }
-
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
