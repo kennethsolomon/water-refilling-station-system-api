@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('borrows', function (Blueprint $table) {
-            // TODO: Soft Delete
             $table->id();
             $table->foreignId('customer_id')->constrained();
             $table->foreignId('transaction_id')->constrained();
             $table->foreignId('order_id')->constrained();
-            $table->foreignId('classification_id')->constrained();
+            $table->integer('quantity');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -19,15 +19,15 @@ class DatabaseSeeder extends Seeder
             'email' => 'kenneth@email.com',
         ]);
 
-        // \App\Models\Game::factory(1)->create();
-        // \App\Models\Player::factory(3)->create();
-        // \App\Models\Bet::factory(3)->create();
-
         $this->call([
             ClassificationSeeder::class
         ]);
 
+        \App\Models\Employee::factory(3)->create();
         \App\Models\Customer::factory(3)->create();
         \App\Models\Item::factory(3)->create();
+        \App\Models\Transaction::factory(5)->create();
+        \App\Models\Order::factory(3)->create();
+        \App\Models\Borrow::factory(1)->create();
     }
 }

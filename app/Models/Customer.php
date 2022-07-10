@@ -19,18 +19,25 @@ class Customer extends Model
         'contact_number',
     ];
 
-    public function classification()
+    protected $appends = ['classification_id'];
+
+    public function getClassificationIdAttribute($classification_id)
     {
-        return $this->hasOne(Classification::class);
+        return Classification::find($classification_id);
     }
 
-    public function borrow()
+    public function borrows()
     {
         return $this->hasMany(Borrow::class);
     }
 
-    public function owned_item()
+    public function owned_items()
     {
         return $this->hasMany(OwnedItem::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
     }
 }

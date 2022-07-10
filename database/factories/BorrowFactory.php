@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Customer;
+use App\Models\Order;
+use App\Models\Transaction;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,10 +20,10 @@ class BorrowFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word(),
-            'description' => $this->faker->sentence(),
-            'quantity' => $this->faker->numberBetween(1, 25),
-            'is_pos' => $this->faker->boolean(),
+            'customer_id' => $this->faker->randomElement(Customer::all()->pluck('id')->toArray()),
+            'transaction_id' => $this->faker->randomElement(Transaction::all()->pluck('id')->toArray()),
+            'order_id' => $this->faker->randomElement(Order::all()->pluck('id')->toArray()),
+            'quantity' => $this->faker->numberBetween(0, 50),
         ];
     }
 }

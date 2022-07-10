@@ -14,7 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::create('customers', function (Blueprint $table) {
-            // TODO: Soft Delete
             $table->id();
             $table->foreignId('classification_id')->constrained();
             $table->string('firstname');
@@ -22,6 +21,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('address');
             $table->string('contact_number');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

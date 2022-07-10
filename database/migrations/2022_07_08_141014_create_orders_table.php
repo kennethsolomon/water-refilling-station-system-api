@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('is_borrow');
             $table->boolean('is_free');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

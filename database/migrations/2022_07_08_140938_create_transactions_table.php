@@ -14,7 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
-            // TODO: Soft Delete
             $table->id();
             $table->foreignId('customer_id')->constrained();
             $table->foreignId('employee_id')->constrained();
@@ -22,6 +21,7 @@ return new class extends Migration
             $table->integer('credit');
             $table->enum('status', ['done', 'active']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

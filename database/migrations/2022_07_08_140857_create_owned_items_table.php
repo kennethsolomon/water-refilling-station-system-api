@@ -14,12 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('owned_items', function (Blueprint $table) {
-            // TODO: Soft Delete
             $table->id();
             $table->foreignId('customer_id')->constrained();
             $table->foreignId('item_id')->constrained();
             $table->integer('quantity');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

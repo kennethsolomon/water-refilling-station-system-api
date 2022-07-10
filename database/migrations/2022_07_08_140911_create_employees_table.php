@@ -14,7 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::create('employees', function (Blueprint $table) {
-            // TODO: Soft Delete
             $table->id();
             $table->string('firstname');
             $table->string('middlename');
@@ -22,6 +21,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('contact_number');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
