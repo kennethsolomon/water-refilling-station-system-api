@@ -22,15 +22,15 @@ class OrderFactory extends Factory
         return [
             'transaction_id' => $this->faker->randomElement(Transaction::all()->pluck('id')->toArray()),
             'item_id' => $this->faker->randomElement(Item::all()->pluck('id')->toArray()),
-            'price' => $this->faker->randomElement(
-                array_values(
-                    array_unique(
-                        collect(
-                            Classification::select(['delivery_charge', 'pickup_charge', 'purchase_charge'])->get()->toArray()
-                        )->flatten()->all()
-                    )
-                )
-            ),
+            // 'price' => $this->faker->randomElement(
+            //     array_values(
+            //         array_unique(
+            //             collect(
+            //                 Classification::select(['delivery_charge', 'pickup_charge', 'purchase_charge'])->get()->toArray()
+            //             )->flatten()->all()
+            //         )
+            //     )
+            // ),
             'quantity' => $this->faker->numberBetween(0, 50),
             'type_of_service' => $this->faker->randomElement(['delivery', 'pickup', 'purchase']),
             'is_borrow' => $this->faker->boolean(),

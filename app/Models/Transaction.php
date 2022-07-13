@@ -18,12 +18,7 @@ class Transaction extends Model
         'status',
     ];
 
-    protected $appends = ['customer_id', 'employee_id'];
-
-    public function getCustomerIdAttribute($customer_id)
-    {
-        return Customer::find($customer_id);
-    }
+    protected $appends = ['employee_id'];
 
     public function getEmployeeIdAttribute($employee_id)
     {

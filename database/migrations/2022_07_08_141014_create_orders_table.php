@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('transaction_id')->constrained();
             $table->foreignId('item_id')->constrained();
-            $table->integer('price');
             $table->integer('quantity');
             $table->enum('type_of_service', ['delivery', 'pickup', 'purchase']);
             $table->boolean('is_borrow');
