@@ -18,11 +18,11 @@ class Transaction extends Model
         'status',
     ];
 
-    protected $appends = ['employee_id'];
+    protected $appends = ['employee_info'];
 
-    public function getEmployeeIdAttribute($employee_id)
+    public function getEmployeeInfoAttribute()
     {
-        return Employee::find($employee_id);
+        return Employee::find($this->employee_id);
     }
 
     public function orders()

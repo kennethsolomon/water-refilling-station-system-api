@@ -24,3 +24,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 // Transactions
 Route::post("createTransaction", [\App\Http\Controllers\TransactionController::class, 'create']);
 Route::get("transactions", [\App\Http\Controllers\TransactionController::class, 'index']);
+
+// Customer
+Route::get("customers", [\App\Http\Controllers\CustomerController::class, 'index']);
+Route::get("customer/{customer}", [\App\Http\Controllers\CustomerController::class, 'show']);

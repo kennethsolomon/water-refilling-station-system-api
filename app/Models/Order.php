@@ -19,11 +19,29 @@ class Order extends Model
         'is_free',
     ];
 
-    protected $appends = ['item_id', 'charge'];
+    protected $appends = ['item_info', 'charge'];
 
-    public function getItemIdAttribute($item_id)
+    public static function boot()
     {
-        return Item::find($item_id);
+        parent::boot();
+
+        self::created(function ($model) {
+            // Minus Item if Purchase or Borrowed
+            $item = Item::find($model->item_id);
+            if ($model->type_of_service == 'purchase' || $model->is_borrow == true) {
+                if ($item->quantity >= $model->quantity) {
+                    $item->quantity -= $model->quantity;
+                    $item->save();
+                } else {
+                    abort(500);
+                }
+            }
+        });
+    }
+
+    public function getItemInfoAttribute()
+    {
+        return Item::find($this->item_id);
     }
 
     public function getChargeAttribute()

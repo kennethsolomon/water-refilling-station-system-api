@@ -14,7 +14,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        return Customer::get();
     }
 
     /**
@@ -46,7 +46,12 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        return $customer->with(
+            ['transactions' => function ($query) {
+                return $query->with(['orders']);
+            }],
+
+        )->first();
     }
 
     /**
