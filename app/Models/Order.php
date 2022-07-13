@@ -26,6 +26,7 @@ class Order extends Model
         parent::boot();
 
         self::created(function ($model) {
+            // FIXME: Comment if doing Migration & Seed
             // Minus Item if Purchase or Borrowed
             $item = Item::find($model->item_id);
             if ($model->type_of_service == 'purchase' || $model->is_borrow == true) {
