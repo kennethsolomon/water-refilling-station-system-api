@@ -30,9 +30,7 @@ class TransactionPostRequest extends FormRequest
             'employee_id' => 'required|exists:App\Models\Employee,id',
             'discount' => 'required|integer',
             'credit' => 'required|integer',
-            'status' => 'required',
             'status' => 'required|string|in:done, active',
-
         ];
     }
 }

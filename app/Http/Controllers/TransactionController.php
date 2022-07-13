@@ -4,25 +4,46 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TransactionPostRequest;
 use App\Models\Transaction;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
+use App\Services\OrderService;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class TransactionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(TransactionPostRequest $request)
+    protected $orderService;
+
+    public function __construct(OrderService $orderService)
+    {
+        $this->orderService = $orderService;
+    }
+
+    public function index(Request $request)
+    {
+        $transaction = Transaction::query();
+
+        if ($request->get('id')) {
+            $transaction->whereId($request->get('id'));
+        }
+
+        if ($request->get('status')) {
+            $transaction->whereStatus($request->get('status'));
+        }
+
+        return $transaction->get();
+    }
+
+    public function create(TransactionPostRequest $request): Response
     {
         try {
             DB::beginTransaction();
 
             $fields = $request->validated();
 
-            Transaction::create($fields);
+            $transaction = Transaction::create($fields);
+
+            $this->orderService->createOrder($request, $transaction->id);
 
             DB::commit();
             return response()->json(
@@ -35,7 +56,6 @@ class TransactionController extends Controller
         } catch (\Throwable $th) {
             throw $th;
             DB::rollBack();
-
             return response()->json(
                 [
                     'message' => 'Failed to add Record',
@@ -46,12 +66,6 @@ class TransactionController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Transaction $transaction)
     {
         //

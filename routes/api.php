@@ -23,3 +23,4 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
 // Transactions
 Route::post("createTransaction", [\App\Http\Controllers\TransactionController::class, 'create']);
+Route::get("transactions", [\App\Http\Controllers\TransactionController::class, 'index']);
