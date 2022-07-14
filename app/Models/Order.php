@@ -31,23 +31,15 @@ class Order extends Model
         self::created(function ($model) {
             // FIXME: Comment if doing Migration & Seed
             // Minus Item if Purchase or Borrowed
-            try {
-                DB::beginTransaction();
-                    $item = Item::find($model->item_id);
-                    if ($model->type_of_service == 'purchase' || $model->is_borrow == true) {
-                        if ($item->quantity >= $model->quantity) {
-                            $item->quantity -= $model->quantity;
-                            $item->save();
-                        } else {
-                            throw new Exception("Insufficient Item.", 500);
-                        }
-                    }
-                DB::commit();
-            } catch (Exception $e) {
-                DB::rollBack();
-                abort(500);
+            $item = Item::find($model->item_id);
+            if ($model->type_of_service == 'purchase' || $model->is_borrow == true) {
+                if ($item->quantity >= $model->quantity) {
+                    $item->quantity -= $model->quantity;
+                    $item->save();
+                } else {
+                    throw new Exception("Insufficient Item.", 500);
+                }
             }
-
         });
     }
 
@@ -82,5 +74,4 @@ class Order extends Model
     {
         return $this->belongsTo(Customer::class);
     }
-
 }

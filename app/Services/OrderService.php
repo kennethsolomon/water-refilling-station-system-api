@@ -25,16 +25,7 @@ class OrderService
 		}
 
 		foreach ($validator->validate()['orders'] as $order) {
-			try {
-                DB::beginTransaction();
-
-				Order::create($order + ['customer_id' => $request->customer_id, 'transaction_id' => $transaction_id]);
-
-                DB::commit();
-			} catch (\Throwable $th) {
-                DB::rollBack();
-                abort(500);
-			}
+			Order::create($order + ['customer_id' => $request->customer_id, 'transaction_id' => $transaction_id]);
 		}
 	}
 }
