@@ -46,7 +46,9 @@ class TransactionController extends Controller
                 $fields
             );
 
-            $this->orderService->updateOrCreateOrder($request, $transaction->id);
+            if ($request->orders) {
+                $this->orderService->updateOrCreateOrder($request, $transaction->id);
+            }
 
             DB::commit();
             return response($transaction, Response::HTTP_CREATED);
