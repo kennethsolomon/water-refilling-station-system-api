@@ -11,6 +11,7 @@ class Order extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'customer_id',
         'transaction_id',
         'item_id',
         'quantity',
@@ -66,4 +67,10 @@ class Order extends Model
                 return abort(400);
         }
     }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
 }

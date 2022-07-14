@@ -18,6 +18,12 @@ class Employee extends Model
         'contact_number'
     ];
 
+    protected $appends = ['fullname'];
+
+    public function getFullnameAttribute()
+    {
+        return $this->firstname . ' ' . $this->middlename . ' ' . $this->lastname;
+    }
 
     public function transactions()
     {

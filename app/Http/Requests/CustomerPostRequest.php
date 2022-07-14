@@ -2,11 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Customer;
-use App\Models\Employee;
 use Illuminate\Foundation\Http\FormRequest;
 
-class TransactionPostRequest extends FormRequest
+class CustomerPostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +24,12 @@ class TransactionPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'customer_id' => 'required|exists:App\Models\Customer,id',
-            'employee_id' => 'required|exists:App\Models\Employee,id',
-            'discount' => 'required|integer',
-            'credit' => 'required|integer',
-            'status' => 'required|string',
+            'classification_id' => 'required|exists:App\Models\Classification,id',
+            'firstname' => 'required|string',
+            'middlename' => 'required|string',
+            'lastname' => 'required|string',
+            'address' => 'required|string',
+            'contact_number' => 'required|string',
         ];
     }
 }

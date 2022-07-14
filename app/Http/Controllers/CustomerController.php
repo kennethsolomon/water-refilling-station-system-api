@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CustomerPostRequest;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -17,25 +19,37 @@ class CustomerController extends Controller
         return Customer::get();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function createOrUpdate(CustomerPostRequest $request)
     {
-        //
-    }
+        try {
+            DB::beginTransaction();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+            $fields = $request->validated();
+
+            Customer::updateOrCreate(
+                ['id' => $request->id],
+                $fields
+            );
+
+            DB::commit();
+            return response()->json(
+                [
+                    'message' => 'Record has been successfully saved',
+                    'type' => 'success',
+                ],
+                200
+            );
+        } catch (\Throwable $th) {
+            throw $th;
+            DB::rollBack();
+            return response()->json(
+                [
+                    'message' => 'Failed to add Record',
+                    'type' => 'warning',
+                ],
+                405
+            );
+        }
     }
 
     /**
@@ -55,29 +69,6 @@ class CustomerController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Customer  $customer
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Customer $customer)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Customer  $customer
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Customer $customer)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Customer  $customer
@@ -85,6 +76,28 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $customer->delete();
+
+            DB::commit();
+            return response()->json(
+                [
+                    'message' => 'Record Delete Successfully.',
+                    'type' => 'sucess',
+                ],
+                200
+            );
+        } catch (\Throwable $th) {
+            throw $th;
+            DB::rollBack();
+            return response()->json(
+                [
+                    'message' => 'Record Delete Successfully.',
+                    'type' => 'sucess',
+                ],
+                405
+            );
+        }
     }
 }

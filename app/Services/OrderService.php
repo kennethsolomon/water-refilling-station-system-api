@@ -12,6 +12,7 @@ class OrderService
 	public function createOrder($request, $transaction_id)
 	{
 		$validator = Validator::make($request->all(), [
+			'customer_id' => 'required|exists:App\Models\Customer,id',
 			'orders.*.item_id' => 'required|exists:App\Models\Item,id',
 			'orders.*.quantity' => 'required|integer',
 			'orders.*.type_of_service' => ['required', 'string', Rule::in(['delivery', 'purchase', 'pickup'])],
@@ -24,7 +25,7 @@ class OrderService
 		}
 
 		foreach ($validator->validate()['orders'] as $order) {
-			Order::create($order + ['transaction_id' => $transaction_id]);
+			Order::create($order + ['customer_id' => $request->customer_id, 'transaction_id' => $transaction_id]);
 		}
 	}
 }

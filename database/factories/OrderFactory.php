@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Classification;
+use App\Models\Customer;
 use App\Models\Item;
 use App\Models\Transaction;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,6 +22,7 @@ class OrderFactory extends Factory
     {
         return [
             'transaction_id' => $this->faker->randomElement(Transaction::all()->pluck('id')->toArray()),
+            'customer_id' => $this->faker->randomElement(Customer::all()->pluck('id')->toArray()),
             'item_id' => $this->faker->randomElement(Item::all()->pluck('id')->toArray()),
             // 'price' => $this->faker->randomElement(
             //     array_values(
