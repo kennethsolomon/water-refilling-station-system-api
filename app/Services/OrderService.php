@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 
 class OrderService
 {
-	public function createOrder($request, $transaction_id)
+	public function updateOrCreateOrder($request, $transaction_id)
 	{
 		$validator = Validator::make($request->all(), [
 			'customer_id' => 'required|exists:App\Models\Customer,id',
@@ -25,7 +25,10 @@ class OrderService
 		}
 
 		foreach ($validator->validate()['orders'] as $order) {
-			Order::create($order + ['customer_id' => $request->customer_id, 'transaction_id' => $transaction_id]);
+			Order::updateOrCreate(
+				['id' => $order["item_id"]],
+				$order + ['customer_id' => $request->customer_id, 'transaction_id' => $transaction_id]
+			);
 		}
 	}
 }

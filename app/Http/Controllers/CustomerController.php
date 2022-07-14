@@ -19,7 +19,7 @@ class CustomerController extends Controller
         return Customer::get();
     }
 
-    public function createOrUpdate(CustomerPostRequest $request)
+    public function updateOrCreateCustomer(CustomerPostRequest $request)
     {
         try {
             DB::beginTransaction();

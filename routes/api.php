@@ -22,11 +22,11 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
 
 // Transactions
-Route::post("create_transaction", [\App\Http\Controllers\TransactionController::class, 'create']);
+Route::post("update_or_create_transaction", [\App\Http\Controllers\TransactionController::class, 'updateOrCreateTransaction']);
 Route::get("transactions", [\App\Http\Controllers\TransactionController::class, 'index']);
 
 // Customer
 Route::get("customers", [\App\Http\Controllers\CustomerController::class, 'index']);
 Route::get("customer/{customer}", [\App\Http\Controllers\CustomerController::class, 'show']);
-Route::post("create_or_update_customer", [\App\Http\Controllers\CustomerController::class, 'createOrUpdate']);
+Route::post("update_or_create_customer", [\App\Http\Controllers\CustomerController::class, 'updateOrCreateCustomer']);
 Route::delete("delete_customer/{customer}", [\App\Http\Controllers\CustomerController::class, 'destroy']);

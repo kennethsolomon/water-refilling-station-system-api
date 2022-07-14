@@ -34,7 +34,7 @@ class TransactionController extends Controller
         return $transaction->get();
     }
 
-    public function create(TransactionPostRequest $request)
+    public function updateOrCreateTransaction(TransactionPostRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -46,7 +46,7 @@ class TransactionController extends Controller
                 $fields
             );
 
-            $this->orderService->createOrder($request, $transaction->id);
+            $this->orderService->updateOrCreateOrder($request, $transaction->id);
 
             DB::commit();
             return response($transaction, Response::HTTP_CREATED);
