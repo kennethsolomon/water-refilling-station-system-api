@@ -36,8 +36,7 @@ class Customer extends Model
                 DB::commit();
             } catch (\Throwable $th) {
                 DB::rollBack();
-                throw $th;
-                abort(405);
+                abort(500);
             }
         });
     }

@@ -21,11 +21,20 @@ class OrderService
 		]);
 
 		if ($validator->fails()) {
-			abort(400);
+			abort(500);
 		}
 
 		foreach ($validator->validate()['orders'] as $order) {
-			Order::create($order + ['customer_id' => $request->customer_id, 'transaction_id' => $transaction_id]);
+			try {
+                DB::beginTransaction();
+
+				Order::create($order + ['customer_id' => $request->customer_id, 'transaction_id' => $transaction_id]);
+
+                DB::commit();
+			} catch (\Throwable $th) {
+                DB::rollBack();
+                abort(500);
+			}
 		}
 	}
 }

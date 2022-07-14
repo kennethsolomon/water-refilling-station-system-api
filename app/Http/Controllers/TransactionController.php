@@ -34,35 +34,25 @@ class TransactionController extends Controller
         return $transaction->get();
     }
 
-    public function create(TransactionPostRequest $request): Response
+    public function create(TransactionPostRequest $request)
     {
         try {
             DB::beginTransaction();
 
             $fields = $request->validated();
 
-            $transaction = Transaction::create($fields);
+            $transaction = Transaction::updateOrCreate(
+                ['id' => $request->id],
+                $fields
+            );
 
             $this->orderService->createOrder($request, $transaction->id);
 
             DB::commit();
-            return response()->json(
-                [
-                    'message' => 'Record has been successfully saved',
-                    'type' => 'success',
-                ],
-                200
-            );
+            return response($transaction, Response::HTTP_CREATED);
         } catch (\Throwable $th) {
-            throw $th;
             DB::rollBack();
-            return response()->json(
-                [
-                    'message' => 'Failed to add Record',
-                    'type' => 'warning',
-                ],
-                405
-            );
+            return response(null, Response::HTTP_NOT_IMPLEMENTED);
         }
     }
 

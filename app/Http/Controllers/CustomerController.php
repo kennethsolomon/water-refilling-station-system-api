@@ -6,6 +6,7 @@ use App\Http\Requests\CustomerPostRequest;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Response;
 
 class CustomerController extends Controller
 {
@@ -26,29 +27,17 @@ class CustomerController extends Controller
 
             $fields = $request->validated();
 
-            Customer::updateOrCreate(
+            $customer = Customer::updateOrCreate(
                 ['id' => $request->id],
                 $fields
             );
 
             DB::commit();
-            return response()->json(
-                [
-                    'message' => 'Record has been successfully saved',
-                    'type' => 'success',
-                ],
-                200
-            );
+            return response($customer, Response::HTTP_CREATED);
         } catch (\Throwable $th) {
             throw $th;
             DB::rollBack();
-            return response()->json(
-                [
-                    'message' => 'Failed to add Record',
-                    'type' => 'warning',
-                ],
-                405
-            );
+            return response(null, Response::HTTP_NOT_IMPLEMENTED);
         }
     }
 
@@ -81,23 +70,12 @@ class CustomerController extends Controller
             $customer->delete();
 
             DB::commit();
-            return response()->json(
-                [
-                    'message' => 'Record Delete Successfully.',
-                    'type' => 'sucess',
-                ],
-                200
-            );
+
+            return response(null, Response::HTTP_NO_CONTENT);
         } catch (\Throwable $th) {
             throw $th;
             DB::rollBack();
-            return response()->json(
-                [
-                    'message' => 'Record Delete Successfully.',
-                    'type' => 'sucess',
-                ],
-                405
-            );
+            return response(null, Response::HTTP_NOT_IMPLEMENTED);
         }
     }
 }

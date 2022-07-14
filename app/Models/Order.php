@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Order extends Model
 {
@@ -29,15 +31,23 @@ class Order extends Model
         self::created(function ($model) {
             // FIXME: Comment if doing Migration & Seed
             // Minus Item if Purchase or Borrowed
-            $item = Item::find($model->item_id);
-            if ($model->type_of_service == 'purchase' || $model->is_borrow == true) {
-                if ($item->quantity >= $model->quantity) {
-                    $item->quantity -= $model->quantity;
-                    $item->save();
-                } else {
-                    abort(500);
-                }
+            try {
+                DB::beginTransaction();
+                    $item = Item::find($model->item_id);
+                    if ($model->type_of_service == 'purchase' || $model->is_borrow == true) {
+                        if ($item->quantity >= $model->quantity) {
+                            $item->quantity -= $model->quantity;
+                            $item->save();
+                        } else {
+                            throw new Exception("Insufficient Item.", 500);
+                        }
+                    }
+                DB::commit();
+            } catch (Exception $e) {
+                DB::rollBack();
+                abort(500);
             }
+
         });
     }
 
