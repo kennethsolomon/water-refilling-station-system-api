@@ -100,4 +100,6 @@ class CustomerController extends Controller
             return response(null, Response::HTTP_NOT_IMPLEMENTED);
         }
     }
+
+    // TODO: add Customer Borrow group by item
 }
