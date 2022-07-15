@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TransactionPostRequest;
+use App\Http\Resources\TransactionResource;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
 
@@ -31,7 +32,7 @@ class TransactionController extends Controller
             $transaction->whereStatus($request->get('status'));
         }
 
-        return $transaction->get();
+        return TransactionResource::collection($transaction->get())->response()->setStatusCode(200);
     }
 
     public function updateOrCreateTransaction(TransactionPostRequest $request)
@@ -51,7 +52,7 @@ class TransactionController extends Controller
             }
 
             DB::commit();
-            return response($transaction, Response::HTTP_CREATED);
+            return (new TransactionResource($transaction))->response()->setStatusCode(201);
         } catch (\Throwable $th) {
             DB::rollBack();
             return response(null, Response::HTTP_NOT_IMPLEMENTED);
@@ -60,6 +61,17 @@ class TransactionController extends Controller
 
     public function destroy(Transaction $transaction)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $transaction->delete();
+
+            DB::commit();
+
+            return response(null, Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            throw $th;
+            DB::rollBack();
+            return response(null, Response::HTTP_NOT_IMPLEMENTED);
+        }
     }
 }

@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 // Transactions
 Route::post("update_or_create_transaction", [\App\Http\Controllers\TransactionController::class, 'updateOrCreateTransaction']);
 Route::get("transactions", [\App\Http\Controllers\TransactionController::class, 'index']);
+Route::delete("delete_transaction/{transaction}", [\App\Http\Controllers\TransactionController::class, 'destroy']);
 
 // Customer
 Route::get("customers", [\App\Http\Controllers\CustomerController::class, 'index']);
