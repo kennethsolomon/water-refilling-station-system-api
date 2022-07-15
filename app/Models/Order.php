@@ -78,6 +78,7 @@ class Order extends Model
             'order_id' => $model->id,
             'transaction_id' => $model->transaction_id,
             'customer_id' => $model->customer_id,
+            'item_id' => $model->item_id,
             'quantity' => $model->quantity,
         ];
 

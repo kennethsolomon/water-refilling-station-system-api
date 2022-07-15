@@ -18,13 +18,20 @@ class BorrowResource extends JsonResource
             'id' => (string)$this->id,
             'type' => 'Borrow',
             'attributes' => [
-                'customer_id' => (string)$this->customer_id,
                 'transaction_id' => (string)$this->transaction_id,
                 'order_id' => (string)$this->order_id,
                 'quantity' => (string)$this->quantity,
                 'created_at' => $this->created_at,
                 'updated_at' => $this->updated_at,
                 'deleted_at' => $this->deleted_at,
+                'item_info' => [
+                    'id' => (string)$this->item_info->id,
+                    'name' => $this->item_info->name,
+                    'description' => $this->item_info->description,
+                    'price' => (string)$this->item_info->price,
+                    'quantity' => (string)$this->item_info->quantity,
+                    'is_pos' => (string)$this->item_info->is_pos,
+                ],
             ]
         ];
     }

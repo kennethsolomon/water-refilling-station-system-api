@@ -14,21 +14,16 @@ class Borrow extends Model
         'customer_id',
         'transaction_id',
         'order_id',
+        'item_id',
         'quantity',
     ];
 
-    // protected $appends = ['transaction_id', 'order_id'];
+    protected $appends = ['item_info'];
 
-
-    // public function getTransactionIdAttribute($transaction_id)
-    // {
-    //     return Transaction::find($transaction_id);
-    // }
-
-    // public function getOrderIdAttribute($order_id)
-    // {
-    //     return Order::find($order_id);
-    // }
+    public function getItemInfoAttribute()
+    {
+        return Item::find($this->item_id);
+    }
 
     public function customer()
     {
@@ -43,5 +38,10 @@ class Borrow extends Model
     public function order()
     {
         return $this->hasOne(Order::class);
+    }
+
+    public function item()
+    {
+        return $this->hasOne(Item::class);
     }
 }

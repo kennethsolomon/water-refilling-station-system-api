@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('customer_id')->constrained();
             $table->foreignId('transaction_id')->constrained();
             $table->foreignId('order_id')->constrained();
+            $table->foreignId('item_id')->constrained();
             $table->integer('quantity');
             $table->timestamps();
             $table->softDeletes();
