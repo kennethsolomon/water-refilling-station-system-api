@@ -28,5 +28,6 @@ Route::get("transactions", [\App\Http\Controllers\TransactionController::class, 
 // Customer
 Route::get("customers", [\App\Http\Controllers\CustomerController::class, 'index']);
 Route::get("customer/{customer}", [\App\Http\Controllers\CustomerController::class, 'show']);
+Route::get("customer_transactions/{customer}", [\App\Http\Controllers\CustomerController::class, 'showCustomerTransactions']);
 Route::post("update_or_create_customer", [\App\Http\Controllers\CustomerController::class, 'updateOrCreateCustomer']);
 Route::delete("delete_customer/{customer}", [\App\Http\Controllers\CustomerController::class, 'destroy']);

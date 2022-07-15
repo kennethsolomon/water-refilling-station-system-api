@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CustomerPostRequest;
+use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,9 +17,15 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return Customer::get();
+        return CustomerResource::collection(Customer::all())->response()->setStatusCode(200);
     }
 
+    /**
+     * Create or Update the specified resource.
+     *
+     * @param  \App\Http\Requests  $request
+     * @return \Illuminate\Http\Response
+     */
     public function updateOrCreateCustomer(CustomerPostRequest $request)
     {
         try {
@@ -32,7 +39,7 @@ class CustomerController extends Controller
             );
 
             DB::commit();
-            return response($customer, Response::HTTP_CREATED);
+            return (new CustomerResource($customer))->response()->setStatusCode(201);
         } catch (\Throwable $th) {
             throw $th;
             DB::rollBack();
@@ -48,12 +55,22 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        return $customer->with(
-            ['transactions' => function ($query) {
-                return $query->with(['orders']);
-            }],
+        return (new CustomerResource($customer))->response()->setStatusCode(202);
+    }
 
-        )->first();
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Customer  $customer
+     * @return \Illuminate\Http\Response
+     */
+    public function showCustomerTransactions(Customer $customer)
+    {
+        $customer_transactions = Customer::whereId($customer->id)->with(['transactions' => function ($query) {
+            return $query->with(['orders']);
+        }])->get();
+
+        return CustomerResource::collection($customer_transactions)->response()->setStatusCode(202);
     }
 
     /**
@@ -70,7 +87,7 @@ class CustomerController extends Controller
 
             DB::commit();
 
-            return response(null, Response::HTTP_NO_CONTENT);
+            return response(null, Response::HTTP_OK);
         } catch (\Throwable $th) {
             throw $th;
             DB::rollBack();

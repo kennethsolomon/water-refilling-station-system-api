@@ -53,7 +53,7 @@ class Order extends Model
         $prices = Customer::find(
             Transaction::find($this->transaction_id)->customer_id
         )
-            ->classification_id;
+            ->classification_info;
 
         switch ($this->type_of_service) {
             case "pickup":

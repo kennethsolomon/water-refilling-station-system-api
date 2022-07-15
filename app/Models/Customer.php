@@ -20,7 +20,7 @@ class Customer extends Model
         'contact_number',
     ];
 
-    protected $appends = ['classification_id', 'fullname'];
+    protected $appends = ['classification_info', 'fullname'];
 
     public static function boot() {
         parent::boot();
@@ -41,9 +41,9 @@ class Customer extends Model
         });
     }
 
-    public function getClassificationIdAttribute($classification_id)
+    public function getClassificationInfoAttribute()
     {
-        return Classification::find($classification_id);
+        return Classification::find($this->classification_id);
     }
 
     public function getFullnameAttribute()
