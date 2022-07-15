@@ -36,6 +36,7 @@ class CustomerResource extends JsonResource
                     'purchase_charge' => $this->classification_info->purchase_charge,
                 ],
                 'transactions' => TransactionResource::collection($this->whenLoaded('transactions')),
+                'borrows' => BorrowResource::collection($this->whenLoaded('borrows')),
             ]
         ];
     }

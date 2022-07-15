@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CustomerPostRequest;
 use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -64,11 +65,16 @@ class CustomerController extends Controller
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function showCustomerTransactions(Customer $customer)
+    public function showCustomerTransactions(Customer $customer, Request $request)
     {
-        $customer_transactions = Customer::whereId($customer->id)->with(['transactions' => function ($query) {
-            return $query->with(['orders']);
-        }])->get();
+        $customer_transactions = Customer::whereId($customer->id)->with(['transactions' => function ($query) use ($request) {
+            $status = $request->get('status');
+            if($status){
+                return $query->whereStatus($status)->with(['orders']);
+            } else {
+                return $query->with(['orders']);
+            }
+        }, 'borrows'])->get();
 
         return CustomerResource::collection($customer_transactions)->response()->setStatusCode(202);
     }
