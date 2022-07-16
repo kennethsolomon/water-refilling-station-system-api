@@ -30,5 +30,7 @@ Route::delete("delete_transaction/{transaction}", [\App\Http\Controllers\Transac
 Route::get("customers", [\App\Http\Controllers\CustomerController::class, 'index']);
 Route::get("customer/{customer}", [\App\Http\Controllers\CustomerController::class, 'show']);
 Route::get("customer_transactions/{customer}", [\App\Http\Controllers\CustomerController::class, 'showCustomerTransactions']);
+Route::get("customer_borrow_items/{customer}", [\App\Http\Controllers\CustomerController::class, 'showCustomerBorrowItems']);
+Route::get("customer_total_borrow_items/{customer}", [\App\Http\Controllers\CustomerController::class, 'showCustomerTotalBorrowItems']);
 Route::post("update_or_create_customer", [\App\Http\Controllers\CustomerController::class, 'updateOrCreateCustomer']);
 Route::delete("delete_customer/{customer}", [\App\Http\Controllers\CustomerController::class, 'destroy']);
