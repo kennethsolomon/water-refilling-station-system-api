@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ItemPostRequest;
+use App\Http\Resources\ItemResource;
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Response;
 
 class ItemController extends Controller
 {
@@ -15,28 +19,34 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //
+        return ItemResource::collection(Item::all())->response()->setStatusCode(200);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Create or Update the specified resource.
      *
+     * @param  \App\Http\Requests  $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function updateOrCreateItem(ItemPostRequest $request)
     {
-        //
-    }
+        try {
+            DB::beginTransaction();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+            $fields = $request->validated();
+
+            $customer = Item::updateOrCreate(
+                ['id' => $request->id],
+                $fields
+            );
+
+            DB::commit();
+            return (new ItemResource($customer))->response()->setStatusCode(201);
+        } catch (\Throwable $th) {
+            throw $th;
+            DB::rollBack();
+            return response(null, Response::HTTP_NOT_IMPLEMENTED);
+        }
     }
 
     /**
@@ -47,30 +57,7 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Item $item)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Item $item)
-    {
-        //
+        return (new ItemResource($item))->response()->setStatusCode(202);
     }
 
     /**
@@ -81,6 +68,17 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $item->delete();
+
+            DB::commit();
+
+            return response(null, Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            throw $th;
+            DB::rollBack();
+            return response(null, Response::HTTP_NOT_IMPLEMENTED);
+        }
     }
 }

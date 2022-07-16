@@ -29,12 +29,11 @@ class Order extends Model
         parent::boot();
 
         self::created(function ($model) {
-            // FIXME: Comment if doing Migration & Seed
             // Minus Item if Purchase or Borrowed
             $model->calculateItem($model);
 
             // Add Borrow if borrow is true
-            if($model->is_borrow) {
+            if ($model->is_borrow) {
                 $model->createBorrow($model);
             }
         });
@@ -85,7 +84,7 @@ class Order extends Model
         Borrow::create($data);
     }
 
-    public function calculateItem($model) 
+    public function calculateItem($model)
     {
         $item = Item::find($model->item_id);
         if ($model->type_of_service == 'purchase' || $model->is_borrow == true) {

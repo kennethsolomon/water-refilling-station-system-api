@@ -34,3 +34,9 @@ Route::get("customer_borrow_items/{customer}", [\App\Http\Controllers\CustomerCo
 Route::get("customer_total_borrow_items/{customer}", [\App\Http\Controllers\CustomerController::class, 'showCustomerTotalBorrowItems']);
 Route::post("update_or_create_customer", [\App\Http\Controllers\CustomerController::class, 'updateOrCreateCustomer']);
 Route::delete("delete_customer/{customer}", [\App\Http\Controllers\CustomerController::class, 'destroy']);
+
+// Item
+Route::get("items", [\App\Http\Controllers\ItemController::class, 'index']);
+Route::get("item/{item}", [\App\Http\Controllers\ItemController::class, 'show']);
+Route::post("update_or_create_item", [\App\Http\Controllers\ItemController::class, 'updateOrCreateItem']);
+Route::delete("delete_item/{item}", [\App\Http\Controllers\ItemController::class, 'destroy']);
