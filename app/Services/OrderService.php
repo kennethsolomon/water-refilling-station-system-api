@@ -24,7 +24,10 @@ class OrderService
 			abort(500);
 		}
 
-		foreach ($validator->validate()['orders'] as $order) {
+		foreach ($validator->validate()["orders"] as $order) {
+			if (!array_key_exists('id', $order)) {
+				$order['id'] = null;
+			}
 			Order::updateOrCreate(
 				['id' => $order["id"]],
 				$order + ['customer_id' => $request->customer_id, 'transaction_id' => $transaction_id]
