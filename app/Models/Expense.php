@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,7 +15,8 @@ class Expense extends Model
         'item_id',
         'note',
         'price',
-        'quantity'
+        'quantity',
+        'operation',
     ];
 
     protected $appends = ['expense_type_info', 'item_info'];
@@ -28,9 +30,6 @@ class Expense extends Model
                 $model->restockItem($model);
             }
         });
-
-        // TODO: update Item
-
     }
 
     public function getExpenseTypeInfoAttribute()
@@ -55,8 +54,17 @@ class Expense extends Model
 
     public function restockItem($model)
     {
-        $item = Item::find($model->item_id);
-        $item->quantity += $model->quantity;
-        $item->save();
+        $operations = array("add", "subtract");
+        if (in_array($model->operation, $operations)) {
+            $item = Item::find($model->item_id);
+            $model->operation == 'add'
+                ?  $item->quantity += $model->quantity
+                : (($item->quantity -= $model->quantity) < 0
+                    ? throw new Exception("Not enough stock, Invalid Operation.", 500)
+                    : true);
+            $item->save();
+        } else {
+            throw new Exception("Invalid Selected Operation", 500);
+        }
     }
 }

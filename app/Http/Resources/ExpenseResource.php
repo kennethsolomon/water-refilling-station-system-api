@@ -23,6 +23,7 @@ class ExpenseResource extends JsonResource
                 'note' => $this->note,
                 'price' => (string)$this->price,
                 'quantity' => (string)$this->quantity,
+                'operation' => (string)$this->operation,
                 'created_at' => $this->created_at,
                 'updated_at' => $this->updated_at,
                 'item_info' => [

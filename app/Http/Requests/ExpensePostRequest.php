@@ -29,6 +29,7 @@ class ExpensePostRequest extends FormRequest
             'note' => 'required|string',
             'price' => 'required|integer',
             'quantity' => 'required|integer',
+            'operation' => 'required|string',
         ];
     }
 }

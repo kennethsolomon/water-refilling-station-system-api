@@ -19,7 +19,8 @@ return new class extends Migration
             $table->foreignId('item_id')->nullable()->constrained();
             $table->string('note')->nullable();
             $table->integer('price');
-            $table->integer('quantity')->nullable();
+            $table->integer('quantity');
+            $table->enum('operation', ['add', 'subtract']);
             $table->timestamps();
         });
     }

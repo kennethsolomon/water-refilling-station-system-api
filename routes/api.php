@@ -42,5 +42,5 @@ Route::post("update_or_create_item", [\App\Http\Controllers\ItemController::clas
 Route::delete("delete_item/{item}", [\App\Http\Controllers\ItemController::class, 'destroy']);
 
 // Expense
-Route::post("update_or_create_expense", [\App\Http\Controllers\ExpenseController::class, 'updateOrCreateExpense']);
+Route::post("create_expense", [\App\Http\Controllers\ExpenseController::class, 'createExpense']);
 Route::delete("delete_item/{expense}", [\App\Http\Controllers\ExpenseController::class, 'destroy']);
