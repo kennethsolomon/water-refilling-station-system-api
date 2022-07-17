@@ -44,20 +44,4 @@ class ExpenseController extends Controller
             return response(null, Response::HTTP_NOT_IMPLEMENTED);
         }
     }
-
-    public function destroy(Expense $expense)
-    {
-        try {
-            DB::beginTransaction();
-            $expense->delete();
-
-            DB::commit();
-
-            return response(null, Response::HTTP_OK);
-        } catch (\Throwable $th) {
-            throw $th;
-            DB::rollBack();
-            return response(null, Response::HTTP_NOT_IMPLEMENTED);
-        }
-    }
 }
