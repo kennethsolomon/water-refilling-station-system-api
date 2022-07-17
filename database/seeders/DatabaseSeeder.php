@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
-            ClassificationSeeder::class
+            ClassificationSeeder::class,
+            ExpenseTypeSeeder::class
         ]);
 
         \App\Models\Employee::factory(3)->create();

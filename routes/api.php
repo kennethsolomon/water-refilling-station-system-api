@@ -40,3 +40,7 @@ Route::get("items", [\App\Http\Controllers\ItemController::class, 'index']);
 Route::get("item/{item}", [\App\Http\Controllers\ItemController::class, 'show']);
 Route::post("update_or_create_item", [\App\Http\Controllers\ItemController::class, 'updateOrCreateItem']);
 Route::delete("delete_item/{item}", [\App\Http\Controllers\ItemController::class, 'destroy']);
+
+// Expense
+Route::post("update_or_create_expense", [\App\Http\Controllers\ExpenseController::class, 'updateOrCreateExpense']);
+Route::delete("delete_item/{expense}", [\App\Http\Controllers\ExpenseController::class, 'destroy']);
