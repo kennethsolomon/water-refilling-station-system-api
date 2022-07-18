@@ -19,7 +19,6 @@ class BorrowController extends Controller
         } else {
             throw new Exception("Invalid Input.", 500);
         }
-
     }
 
     /**

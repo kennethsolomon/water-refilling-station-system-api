@@ -20,6 +20,16 @@ class Borrow extends Model
 
     protected $appends = ['item_info'];
 
+    public static function boot() {
+        parent::boot();
+
+        static::updated(function($model) { // before delete() method call this
+            if($model->quantity === 0) {
+                $model->delete();
+            }
+        });
+    }
+
     public function getItemInfoAttribute()
     {
         return Item::find($this->item_id);
