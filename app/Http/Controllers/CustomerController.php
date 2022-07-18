@@ -24,9 +24,18 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return CustomerResource::collection(Customer::all())->response()->setStatusCode(200);
+        $customer_transactions = Customer::with(['transactions' => function ($query) use ($request) {
+            $status = $request->get('status');
+            if ($status) {
+                return $query->whereStatus($status)->with(['orders']);
+            } else {
+                return $query->with(['orders']);
+            }
+        }, 'borrows'])->get();
+
+        return CustomerResource::collection($customer_transactions)->response()->setStatusCode(200);
     }
 
     /**
