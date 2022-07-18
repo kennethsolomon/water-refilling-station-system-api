@@ -2,12 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BorrowResource;
 use App\Models\Borrow;
+use Exception;
 use Illuminate\Http\Request;
 
 class BorrowController extends Controller
 {
-    // TODO: Create Return Method 
+    public function returnItem(Borrow $borrow, Request $request)
+    {
+        $quantity = $borrow->quantity -= $request->quantity; 
+        if($quantity >= 0){
+            $borrow->save();
+
+            return (new BorrowResource($borrow))->response()->setStatusCode(201);
+        } else {
+            throw new Exception("Invalid Input.", 500);
+        }
+
+    }
 
     /**
      * Display a listing of the resource.

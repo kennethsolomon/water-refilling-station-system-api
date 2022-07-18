@@ -44,3 +44,6 @@ Route::delete("delete_item/{item}", [\App\Http\Controllers\ItemController::class
 // Expense
 Route::post("create_expense", [\App\Http\Controllers\ExpenseController::class, 'createExpense']);
 Route::delete("delete_item/{expense}", [\App\Http\Controllers\ExpenseController::class, 'destroy']);
+
+// Borrow
+Route::post("return_item/{borrow}", [\App\Http\Controllers\BorrowController::class, 'returnItem']);
