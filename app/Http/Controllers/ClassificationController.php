@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ClassificationResource;
 use App\Models\Classification;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class ClassificationController extends Controller
      */
     public function index()
     {
-        //
+        return ClassificationResource::collection(Classification::all())->response()->setStatusCode(200);
     }
 
     /**
