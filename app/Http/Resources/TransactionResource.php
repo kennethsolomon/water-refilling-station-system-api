@@ -24,6 +24,7 @@ class TransactionResource extends JsonResource
                 'status' => (string)$this->status,
                 'created_at' => $this->created_at,
                 'updated_at' => $this->updated_at,
+                'latest_transaction' => $this->latest_transaction,
                 'deleted_at' => $this->deleted_at,
                 'employee_info' => [
                     'id' => (string)$this->employee_info->id,

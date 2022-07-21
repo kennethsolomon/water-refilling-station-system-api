@@ -22,10 +22,11 @@ class Customer extends Model
 
     protected $appends = ['classification_info', 'fullname'];
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
 
-        static::deleting(function($model) { // before delete() method call this
+        static::deleting(function ($model) { // before delete() method call this
             try {
                 DB::beginTransaction();
 
@@ -65,5 +66,4 @@ class Customer extends Model
     {
         return $this->hasMany(Order::class);
     }
-
 }

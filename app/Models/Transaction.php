@@ -19,12 +19,13 @@ class Transaction extends Model
         'status',
     ];
 
-    protected $appends = ['employee_info'];
+    protected $appends = ['employee_info', 'latest_transaction'];
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
 
-        static::deleting(function($model) { // before delete() method call this
+        static::deleting(function ($model) { // before delete() method call this
             try {
                 DB::beginTransaction();
 
@@ -41,6 +42,11 @@ class Transaction extends Model
     public function getEmployeeInfoAttribute()
     {
         return Employee::find($this->employee_id);
+    }
+
+    public function getLatestTransactionAttribute()
+    {
+        return $this->updated_at->diffForHumans();
     }
 
     public function orders()
