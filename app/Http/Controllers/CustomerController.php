@@ -29,9 +29,9 @@ class CustomerController extends Controller
         $customer_transactions = Customer::with(['transactions' => function ($query) use ($request) {
             $status = $request->get('status');
             if ($status) {
-                return $query->whereStatus($status)->with(['orders']);
+                return $query->whereStatus($status)->with(['orders'])->orderBy('id', 'DESC')->get();
             } else {
-                return $query->with(['orders']);
+                return $query->with(['orders'])->orderBy('id', 'DESC')->get();
             }
         }, 'borrows'])->orderBy('id', 'DESC')->get();
 
