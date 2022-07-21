@@ -33,7 +33,7 @@ class CustomerController extends Controller
             } else {
                 return $query->with(['orders']);
             }
-        }, 'borrows'])->get();
+        }, 'borrows'])->orderBy('id', 'DESC')->get();
 
         return CustomerResource::collection($customer_transactions)->response()->setStatusCode(200);
     }
