@@ -27,6 +27,9 @@ Route::get("customer_total_borrow_items/{customer}", [\App\Http\Controllers\Cust
 Route::post("update_or_create_customer", [\App\Http\Controllers\CustomerController::class, 'updateOrCreateCustomer']);
 Route::delete("delete_customer/{customer}", [\App\Http\Controllers\CustomerController::class, 'destroy']);
 
+// Employee
+Route::get("employees", [\App\Http\Controllers\EmployeeController::class, 'index']);
+
 // Classifications
 Route::get("classifications", [\App\Http\Controllers\ClassificationController::class, 'index']);
 
