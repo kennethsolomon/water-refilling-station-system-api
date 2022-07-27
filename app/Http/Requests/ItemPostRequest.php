@@ -26,7 +26,9 @@ class ItemPostRequest extends FormRequest
         return [
             'name' => 'required|string',
             'description' => 'required|string',
-            'price' => 'required|integer',
+            'pickup_price' => 'required|integer',
+            'delivery_price' => 'required|integer',
+            'purchase_price' => 'required|integer',
             'quantity' => 'required|integer',
             'is_pos' => 'required|boolean',
         ];

@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->integer('price');
+            $table->integer('pickup_price');
+            $table->integer('delivery_price');
+            $table->integer('purchase_price');
             $table->integer('quantity');
             $table->boolean('is_pos');
             $table->timestamps();

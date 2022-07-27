@@ -19,7 +19,9 @@ class ItemFactory extends Factory
         return [
             'name' => $this->faker->word(),
             'description' => $this->faker->sentence(),
-            'price' => $this->faker->numberBetween(20, 30),
+            'pickup_price' => $this->faker->numberBetween(20, 30),
+            'delivery_price' => $this->faker->numberBetween(20, 30),
+            'purchase_price' => $this->faker->numberBetween(150, 200),
             'quantity' => $this->faker->numberBetween(99, 200),
             'is_pos' => $this->faker->boolean(),
         ];
