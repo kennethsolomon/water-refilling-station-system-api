@@ -27,14 +27,6 @@ class CustomerResource extends JsonResource
                 'created_at' => $this->created_at,
                 'updated_at' => $this->updated_at,
                 'deleted_at' => $this->deleted_at,
-                'classification_info' => [
-                    'id' => (string)$this->classification_info->id,
-                    'name' => $this->classification_info->name,
-                    'description' => $this->classification_info->description,
-                    'delivery_charge' => (string)$this->classification_info->delivery_charge,
-                    'pickup_charge' => (string)$this->classification_info->pickup_charge,
-                    'purchase_charge' => (string)$this->classification_info->purchase_charge,
-                ],
                 'transactions' => TransactionResource::collection($this->whenLoaded('transactions')),
                 'borrows' => BorrowResource::collection($this->whenLoaded('borrows')),
             ]

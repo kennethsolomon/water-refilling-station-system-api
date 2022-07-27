@@ -24,7 +24,6 @@ class CustomerPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'classification_id' => 'required|exists:App\Models\Classification,id',
             'firstname' => 'required|string',
             'middlename' => 'required|string',
             'lastname' => 'required|string',

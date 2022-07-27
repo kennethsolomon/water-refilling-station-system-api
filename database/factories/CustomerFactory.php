@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Classification;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +17,6 @@ class CustomerFactory extends Factory
     public function definition()
     {
         return [
-            'classification_id' => $this->faker->randomElement(Classification::all()->pluck('id')->toArray()),
             'firstname' => $this->faker->firstName(),
             'middlename' => $this->faker->lastName(),
             'lastname' => $this->faker->lastName(),

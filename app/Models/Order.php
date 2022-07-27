@@ -22,7 +22,7 @@ class Order extends Model
         'is_free',
     ];
 
-    protected $appends = ['item_info', 'charge'];
+    protected $appends = ['item_info'];
 
     public static function boot()
     {
@@ -42,28 +42,6 @@ class Order extends Model
     public function getItemInfoAttribute()
     {
         return Item::find($this->item_id);
-    }
-
-    public function getChargeAttribute()
-    {
-        $prices = Customer::find(
-            Transaction::find($this->transaction_id)->customer_id
-        )
-            ->classification_info;
-
-        switch ($this->type_of_service) {
-            case "pickup":
-                return $prices->pickup_charge;
-                break;
-            case "delivery":
-                return $prices->delivery_charge;
-                break;
-            case "purchase":
-                return $prices->purchase_charge;
-                break;
-            default:
-                return abort(400);
-        }
     }
 
     public function customer()

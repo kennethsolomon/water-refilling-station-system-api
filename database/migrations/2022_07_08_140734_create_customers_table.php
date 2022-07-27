@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('classification_id')->constrained();
             $table->string('firstname');
             $table->string('middlename');
             $table->string('lastname');

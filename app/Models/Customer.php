@@ -12,7 +12,6 @@ class Customer extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'classification_id',
         'firstname',
         'middlename',
         'lastname',
@@ -20,7 +19,7 @@ class Customer extends Model
         'contact_number',
     ];
 
-    protected $appends = ['classification_info', 'fullname'];
+    protected $appends = ['fullname'];
 
     public static function boot()
     {
@@ -42,10 +41,6 @@ class Customer extends Model
         });
     }
 
-    public function getClassificationInfoAttribute()
-    {
-        return Classification::find($this->classification_id);
-    }
 
     public function getFullnameAttribute()
     {

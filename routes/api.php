@@ -30,9 +30,6 @@ Route::delete("delete_customer/{customer}", [\App\Http\Controllers\CustomerContr
 // Employee
 Route::get("employees", [\App\Http\Controllers\EmployeeController::class, 'index']);
 
-// Classifications
-Route::get("classifications", [\App\Http\Controllers\ClassificationController::class, 'index']);
-
 // Item
 Route::get("items", [\App\Http\Controllers\ItemController::class, 'index']);
 Route::get("item/{item}", [\App\Http\Controllers\ItemController::class, 'show']);
