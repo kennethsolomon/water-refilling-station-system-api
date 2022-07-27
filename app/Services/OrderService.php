@@ -15,8 +15,9 @@ class OrderService
 			'orders.*.id' => 'sometimes|required',
 			'orders.*.item_id' => 'required|exists:App\Models\Item,id',
 			'orders.*.quantity' => 'required|integer',
-			'orders.*.type_of_service' => ['required', 'string', Rule::in(['delivery', 'purchase', 'pickup'])],
+			'orders.*.type_of_service' => ['required', 'string', Rule::in(['delivery', 'purchase'])],
 			'orders.*.is_borrow' => 'required|boolean',
+			'orders.*.is_purchase' => 'required|boolean',
 			'orders.*.is_free' => 'required|boolean',
 		]);
 

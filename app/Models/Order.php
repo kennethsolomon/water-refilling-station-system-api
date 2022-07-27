@@ -19,6 +19,7 @@ class Order extends Model
         'quantity',
         'type_of_service',
         'is_borrow',
+        'is_purchase',
         'is_free',
     ];
 
@@ -65,7 +66,7 @@ class Order extends Model
     public function calculateItem($model)
     {
         $item = Item::find($model->item_id);
-        if ($model->type_of_service == 'purchase' || $model->is_borrow == true) {
+        if ($model->is_purchase == true || $model->is_borrow == true) {
             if ($item->quantity >= $model->quantity) {
                 $item->quantity -= $model->quantity;
                 $item->save();

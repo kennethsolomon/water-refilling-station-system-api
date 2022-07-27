@@ -24,8 +24,9 @@ class OrderFactory extends Factory
             'customer_id' => $this->faker->randomElement(Customer::all()->pluck('id')->toArray()),
             'item_id' => $this->faker->randomElement(Item::all()->pluck('id')->toArray()),
             'quantity' => $this->faker->numberBetween(0, 50),
-            'type_of_service' => $this->faker->randomElement(['delivery', 'pickup', 'purchase']),
+            'type_of_service' => $this->faker->randomElement(['delivery', 'pickup']),
             'is_borrow' => $this->faker->boolean(),
+            'is_purchase' => $this->faker->boolean(),
             'is_free' => $this->faker->boolean(),
         ];
     }

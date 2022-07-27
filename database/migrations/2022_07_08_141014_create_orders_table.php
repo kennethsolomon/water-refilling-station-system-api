@@ -19,8 +19,9 @@ return new class extends Migration
             $table->foreignId('customer_id')->constrained();
             $table->foreignId('item_id')->constrained();
             $table->integer('quantity');
-            $table->enum('type_of_service', ['delivery', 'pickup', 'purchase']);
+            $table->enum('type_of_service', ['delivery', 'pickup']);
             $table->boolean('is_borrow');
+            $table->boolean('is_purchase');
             $table->boolean('is_free');
             $table->timestamps();
             $table->softDeletes();

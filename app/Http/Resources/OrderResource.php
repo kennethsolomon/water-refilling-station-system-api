@@ -23,6 +23,7 @@ class OrderResource extends JsonResource
                 'quantity' => (string)$this->quantity,
                 'type_of_service' => $this->type_of_service,
                 'is_borrow' => (string)$this->is_borrow,
+                'is_purchase' => (string)$this->is_purchase,
                 'is_free' => (string)$this->is_free,
                 'created_at' => $this->created_at,
                 'updated_at' => $this->updated_at,
