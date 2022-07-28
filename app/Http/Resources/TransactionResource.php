@@ -22,6 +22,7 @@ class TransactionResource extends JsonResource
                 'discount' => (string)$this->discount,
                 'credit' => (string)$this->credit,
                 'status' => (string)$this->status,
+                'transaction_date' => (string)$this->transaction_date,
                 'created_at' => $this->created_at,
                 'updated_at' => $this->updated_at,
                 'latest_transaction' => $this->latest_transaction,

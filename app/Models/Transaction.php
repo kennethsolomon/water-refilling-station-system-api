@@ -17,6 +17,7 @@ class Transaction extends Model
         'discount',
         'credit',
         'status',
+        'transaction_date',
     ];
 
     protected $appends = ['employee_info', 'latest_transaction'];

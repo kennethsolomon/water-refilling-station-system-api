@@ -31,6 +31,7 @@ class TransactionPostRequest extends FormRequest
             'discount' => 'required|integer',
             'credit' => 'required|integer',
             'status' => 'required|string',
+            'transaction_date' => 'required|string',
         ];
     }
 }

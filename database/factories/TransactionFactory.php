@@ -24,6 +24,7 @@ class TransactionFactory extends Factory
             'discount' => $this->faker->numberBetween(0, 10),
             'credit' => $this->faker->numberBetween(0, 200),
             'status' => $this->faker->randomElement(['done', 'active']),
+            'transaction_date' => $this->faker->date(),
         ];
     }
 }

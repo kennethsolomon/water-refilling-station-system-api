@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('discount');
             $table->integer('credit');
             $table->enum('status', ['done', 'active']);
+            $table->date('transaction_date');
             $table->timestamps();
             $table->softDeletes();
         });
