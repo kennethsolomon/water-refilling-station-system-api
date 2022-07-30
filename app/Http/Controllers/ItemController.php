@@ -6,6 +6,7 @@ use App\Http\Requests\ItemPostRequest;
 use App\Http\Resources\ItemResource;
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,7 +19,11 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return ItemResource::collection(Item::all())->response()->setStatusCode(200);
+        if (Cache::has('items')) {
+            return Cache::get('items');
+        } else {
+            return ItemResource::collection(Item::all())->response()->setStatusCode(200);
+        }
     }
 
     /**

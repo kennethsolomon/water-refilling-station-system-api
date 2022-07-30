@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\EmployeeResource;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class EmployeeController extends Controller
 {
@@ -15,7 +16,11 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return EmployeeResource::collection(Employee::all())->response()->setStatusCode(200);
+        if (Cache::has('employees')) {
+            return Cache::get('employees');
+        } else {
+            return EmployeeResource::collection(Employee::all())->response()->setStatusCode(200);
+        }
     }
 
     /**
