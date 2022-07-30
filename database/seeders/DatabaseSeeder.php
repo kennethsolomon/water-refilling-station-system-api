@@ -23,9 +23,9 @@ class DatabaseSeeder extends Seeder
             ExpenseTypeSeeder::class
         ]);
 
-        \App\Models\Employee::factory(3)->create();
+        \App\Models\Employee::factory(10000)->create();
         \App\Models\Customer::factory(3)->create();
-        \App\Models\Item::factory(3)->create();
+        \App\Models\Item::factory(10000)->create();
         // \App\Models\Transaction::factory(1)->create();
         // \App\Models\Order::factory(1)->create();
         // \App\Models\Borrow::factory(1)->create();
