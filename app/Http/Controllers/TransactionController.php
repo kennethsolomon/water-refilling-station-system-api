@@ -55,7 +55,9 @@ class TransactionController extends Controller
             return (new TransactionResource($transaction))->response()->setStatusCode(201);
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response(null, Response::HTTP_NOT_IMPLEMENTED);
+            return response()->json([
+                'message' => $th->getMessage(),
+            ], 501);
         }
     }
 

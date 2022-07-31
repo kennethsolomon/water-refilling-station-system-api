@@ -71,7 +71,7 @@ class Order extends Model
                 $item->quantity -= $model->quantity;
                 $item->save();
             } else {
-                throw new Exception("Insufficient Item.", 500);
+                throw new Exception('Insufficient stock: ' . $item->name, 501);
             }
         }
     }
