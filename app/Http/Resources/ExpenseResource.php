@@ -16,29 +16,26 @@ class ExpenseResource extends JsonResource
     {
         return [
             'id' => (string)$this->id,
-            'type' => 'Expense',
-            'attributes' => [
-                'expense_type_id' => (string)$this->expense_type_id,
-                'item_id' => (string)$this->item_id,
-                'note' => $this->note,
-                'price' => (string)$this->price,
-                'quantity' => (string)$this->quantity,
-                'operation' => (string)$this->operation,
-                'created_at' => $this->created_at,
-                'updated_at' => $this->updated_at,
-                'item_info' => [
-                    'id' => (string)$this->item_info->id,
-                    'name' => $this->item_info->name,
-                    'description' => $this->item_info->description,
-                    'price' => (string)$this->item_info->price,
-                    'quantity' => (string)$this->item_info->quantity,
-                    'is_pos' => (string)$this->item_info->is_pos,
-                ],
-                'expense_type_info' => [
-                    'id' => (string)$this->expense_type_info->id,
-                    'title' => $this->expense_type_info->title,
-                ],
-            ]
+            'expense_type_id' => (string)$this->expense_type_id,
+            'item_id' => (string)$this->item_id,
+            'note' => $this->note,
+            'price' => (string)$this->price,
+            'quantity' => (string)$this->quantity,
+            'operation' => (string)$this->operation,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'item_info' => [
+                'id' => (string)$this->item_info->id,
+                'name' => $this->item_info->name,
+                'description' => $this->item_info->description,
+                'price' => (string)$this->item_info->price,
+                'quantity' => (string)$this->item_info->quantity,
+                'is_pos' => (string)$this->item_info->is_pos,
+            ],
+            'expense_type_info' => [
+                'id' => (string)$this->expense_type_info->id,
+                'title' => $this->expense_type_info->title,
+            ],
         ];
     }
 }

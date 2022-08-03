@@ -16,12 +16,9 @@ class ExpenseTypeResource extends JsonResource
     {
         return [
             'id' => (string)$this->id,
-            'type' => 'Expense Type',
-            'attributes' => [
-                'title' => $this->title,
-                'created_at' => $this->created_at,
-                'updated_at' => $this->updated_at,
-            ]
+            'title' => $this->title,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

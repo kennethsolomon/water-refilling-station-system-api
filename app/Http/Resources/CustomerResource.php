@@ -16,20 +16,17 @@ class CustomerResource extends JsonResource
     {
         return [
             'id' => (string)$this->id,
-            'type' => 'Customers',
-            'attributes' => [
-                'fullname' => $this->fullname,
-                'firstname' => $this->firstname,
-                'middlename' => $this->middlename,
-                'lastname' => $this->lastname,
-                'address' => $this->address,
-                'contact_number' => $this->contact_number,
-                'created_at' => $this->created_at,
-                'updated_at' => $this->updated_at,
-                'deleted_at' => $this->deleted_at,
-                'transactions' => TransactionResource::collection($this->whenLoaded('transactions')),
-                'borrows' => BorrowResource::collection($this->whenLoaded('borrows')),
-            ]
+            'fullname' => $this->fullname,
+            'firstname' => $this->firstname,
+            'middlename' => $this->middlename,
+            'lastname' => $this->lastname,
+            'address' => $this->address,
+            'contact_number' => $this->contact_number,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
+            'transactions' => TransactionResource::collection($this->whenLoaded('transactions')),
+            'borrows' => BorrowResource::collection($this->whenLoaded('borrows')),
         ];
     }
 }

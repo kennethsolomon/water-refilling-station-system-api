@@ -16,19 +16,15 @@ class EmployeeResource extends JsonResource
     {
         return [
             'id' => (string)$this->id,
-            'type' => 'Employee',
-            'attributes' => [
-                'fullname' => $this->fullname,
-                'firstname' => $this->firstname,
-                'middlename' => $this->middlename,
-                'lastname' => $this->lastname,
-                'address' => $this->address,
-                'contact_number' => $this->contact_number,
-                'created_at' => $this->created_at,
-                'updated_at' => $this->updated_at,
-                'deleted_at' => $this->deleted_at,
-            ]
-
+            'fullname' => $this->fullname,
+            'firstname' => $this->firstname,
+            'middlename' => $this->middlename,
+            'lastname' => $this->lastname,
+            'address' => $this->address,
+            'contact_number' => $this->contact_number,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
         ];
     }
 }
