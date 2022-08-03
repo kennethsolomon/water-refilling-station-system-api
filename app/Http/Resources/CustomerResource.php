@@ -25,6 +25,7 @@ class CustomerResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,
+            'register_customer' => $this->register_customer,
             'transactions' => TransactionResource::collection($this->whenLoaded('transactions')),
             'borrows' => BorrowResource::collection($this->whenLoaded('borrows')),
         ];

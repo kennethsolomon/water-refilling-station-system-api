@@ -19,7 +19,7 @@ class Customer extends Model
         'contact_number',
     ];
 
-    protected $appends = ['fullname'];
+    protected $appends = ['fullname', 'register_customer'];
 
     public static function boot()
     {
@@ -41,10 +41,14 @@ class Customer extends Model
         });
     }
 
-
     public function getFullnameAttribute()
     {
         return $this->firstname . ' ' . $this->middlename . ' ' . $this->lastname;
+    }
+
+    public function getRegisterCustomerAttribute()
+    {
+        return $this->created_at->diffForHumans();
     }
 
     public function borrows()
