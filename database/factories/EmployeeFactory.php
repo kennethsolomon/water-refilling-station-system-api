@@ -21,7 +21,7 @@ class EmployeeFactory extends Factory
             'middlename' => $this->faker->lastName(),
             'lastname' => $this->faker->lastName(),
             'address' => $this->faker->address(),
-            'contact_number' => $this->faker->phoneNumber(),
+            'contact_number' => "09" . $this->faker->numerify('#########')
         ];
     }
 }
