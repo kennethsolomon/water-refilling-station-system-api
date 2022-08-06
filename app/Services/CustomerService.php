@@ -29,9 +29,13 @@ class CustomerService
 
 	public function customerTotalBorrowItems($customer)
 	{
-		$customer_total_borrow_items = Borrow::whereCustomerId($customer->id)
+		$customer_total_borrow_items =
+			Borrow::whereCustomerId($customer->id)
+			->select('id', 'order_id', 'item_id', 'quantity', 'customer_id', 'transaction_id')
+			->selectRaw('sum(quantity) as total_borrow, item_id')
 			->groupBy('item_id')
-			->selectRaw('sum(quantity) as total_borrow, item_id')->get();
+			->get();
+
 		return $customer_total_borrow_items;
 	}
 }

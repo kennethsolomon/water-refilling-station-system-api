@@ -20,11 +20,12 @@ class Borrow extends Model
 
     protected $appends = ['item_info'];
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
 
-        static::updated(function($model) { // before delete() method call this
-            if($model->quantity === 0) {
+        static::updated(function ($model) { // before delete() method call this
+            if ($model->quantity === 0) {
                 $model->delete();
             }
         });
@@ -32,7 +33,18 @@ class Borrow extends Model
 
     public function getItemInfoAttribute()
     {
-        return Item::find($this->item_id);
+        $price = 0;
+        $order = Order::find($this->order_id);
+        $item = Item::find($this->item_id);
+        if ($order->is_purchase) {
+            $price = $item->purchase_price;
+        } else if (!$order->is_purchase && $order->type_of_service == 'delivery') {
+            $price = $item->delivery_price;
+        } else if (!$order->is_purchase && $order->type_of_service == 'pickup') {
+            $price = $item->pickup_price;
+        }
+        $item->price = $price;
+        return $item;
     }
 
     public function customer()
