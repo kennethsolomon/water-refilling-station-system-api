@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\BorrowResource;
 use App\Models\Borrow;
+use App\Models\Item;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -13,6 +14,10 @@ class BorrowController extends Controller
     {
         $quantity = $borrow->quantity -= $request->quantity; 
         if($quantity >= 0){
+            $item = Item::find($request->item_id);
+            $item->quantity += $request->quantity;
+            $item->save();
+
             $borrow->save();
 
             return (new BorrowResource($borrow))->response()->setStatusCode(201);
