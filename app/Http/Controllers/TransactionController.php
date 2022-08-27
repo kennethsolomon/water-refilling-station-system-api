@@ -32,7 +32,28 @@ class TransactionController extends Controller
             $transaction->whereStatus($request->get('status'));
         }
 
-        return TransactionResource::collection($transaction->get())->response()->setStatusCode(200);
+        if (request()->has('search')) {
+            $transaction->whereLike(
+                [
+                    'id',
+                    'transaction_date'
+                ],
+                request('search')
+            );
+        }
+
+        return request()->has('page') ?
+
+            TransactionResource::collection($transaction
+                ->with(['orders'])
+                ->paginate(intval(request('rows')))->withQueryString())
+            // ->paginate(intval(request('rows')))->appends(request()->all()))
+            :
+            TransactionResource::collection($transaction
+                ->with(['orders'])
+                ->get())
+            ->response()
+            ->setStatusCode(200);
     }
 
     public function updateOrCreateTransaction(TransactionPostRequest $request)

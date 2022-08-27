@@ -20,7 +20,7 @@ class Transaction extends Model
         'transaction_date',
     ];
 
-    protected $appends = ['employee_info', 'latest_transaction'];
+    protected $appends = ['employee_info', 'customer_info', 'latest_transaction'];
 
     public static function boot()
     {
@@ -43,6 +43,11 @@ class Transaction extends Model
     public function getEmployeeInfoAttribute()
     {
         return Employee::find($this->employee_id);
+    }
+
+    public function getCustomerInfoAttribute()
+    {
+        return Customer::find($this->customer_id);
     }
 
     public function getLatestTransactionAttribute()

@@ -34,6 +34,15 @@ class TransactionResource extends JsonResource
                 'address' => $this->employee_info->address,
                 'contact_number' => $this->employee_info->contact_number,
             ],
+            'customer_info' => [
+                'id' => (string)$this->customer_info->id,
+                'fullname' => $this->customer_info->fullname,
+                'firstname' => $this->customer_info->firstname,
+                'middlename' => $this->customer_info->middlename,
+                'lastname' => $this->customer_info->lastname,
+                'address' => $this->customer_info->address,
+                'contact_number' => $this->customer_info->contact_number,
+            ],
             'orders' => OrderResource::collection($this->whenLoaded('orders')),
         ];
     }
